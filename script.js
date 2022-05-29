@@ -74,15 +74,27 @@ const display = document.querySelector(".display");
 let operator = null;
 let displayValue = null;
 
+// When button clicked, if display showing an operator, then remove it
+// Then populate the display with user input
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
+        if (display.textContent === "+" ||
+        display.textContent === "-" ||
+        display.textContent === "*" ||
+        display.textContent === "/") {
+            display.textContent = "";
+        }
         populateDisplay(button);
     });
 });
 
+// When operator button is clicked, save which operator was chosen...
+// get the value number value that's being displayed, and then display
+// the chosen operator.
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
         operator = button.textContent;
         displayValue = getDisplayValue();
+        display.textContent = `${operator}`;
     });
 });
