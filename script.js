@@ -28,3 +28,19 @@ function operate(op, num1, num2) {
         return divide(num1, num2);
     }
 }
+
+function populateDisplay(button) {
+    let digit = button.textContent;
+    let p = document.createElement("p");
+    p.textContent = digit;
+    display.appendChild(p);
+}
+
+const numButtons = document.querySelectorAll(".number-button");
+const display = document.querySelector(".display");
+
+numButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        populateDisplay(button);
+    });
+});
