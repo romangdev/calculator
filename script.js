@@ -37,8 +37,6 @@ function populateDisplay(button) {
     let s = document.createElement("span");
     s.textContent = digit;
     display.appendChild(s);
-    // let displayValue = getDisplayValue();
-    // return displayValue;
 }
 
 // Get the display value number to be saved as a variable for later use
@@ -73,28 +71,28 @@ const display = document.querySelector(".display");
 
 let operator = null;
 let displayValue = null;
+let firstDisplayValue = null;
+let secondDisplayValue = null;
 
-// When button clicked, if display showing an operator, then remove it
-// Then populate the display with user input
+// When button clicked, if no previous display value saved, save the display
+// value to firstdisplayvalue, then set displayValue to null and reset
+// display content.
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        if (display.textContent === "+" ||
-        display.textContent === "-" ||
-        display.textContent === "*" ||
-        display.textContent === "/") {
+        if (displayValue != null) {
+            firstDisplayValue = displayValue;
+            displayValue = null;
             display.textContent = "";
         }
         populateDisplay(button);
     });
 });
 
-// When operator button is clicked, save which operator was chosen...
-// get the value number value that's being displayed, and then display
-// the chosen operator.
+// When operator button is clicked, save operator selected and get
+// the final display value.
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
         operator = button.textContent;
         displayValue = getDisplayValue();
-        display.textContent = `${operator}`;
     });
 });
