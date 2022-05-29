@@ -40,8 +40,19 @@ function getDisplayValue() {
     let displayValue = display.textContent;
     displayValue = Array.from(displayValue);
     displayValue.splice(0, 14);
-    displayValue = displayValue.map(Number);
+    displayValue = combineArrayNums(displayValue);
+    displayValue = Number(displayValue);
     return displayValue;
+}
+
+function combineArrayNums(arr) {
+    let value = ""; 
+    arr.forEach((val) => {
+        value += val;
+        return value;
+    });
+    arr = value;
+    return arr;
 }
 
 const numButtons = document.querySelectorAll(".number-button");
