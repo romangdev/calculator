@@ -37,15 +37,19 @@ function populateDisplay(button) {
     let s = document.createElement("span");
     s.textContent = digit;
     display.appendChild(s);
-    let displayValue = getDisplayValue();
-    return displayValue;
+    // let displayValue = getDisplayValue();
+    // return displayValue;
 }
 
 // Get the display value number to be saved as a variable for later use
 function getDisplayValue() {
     let displayValue = display.textContent;
     displayValue = Array.from(displayValue);
-    displayValue.splice(0, 14);
+    for (let i = 0; i < displayValue.length; i++) {
+        if (displayValue[i] === "\n" || displayValue[i] === " ") {
+            displayValue.splice(i, 1);
+        }
+    }
     displayValue = combineArrayNums(displayValue);
     displayValue = Number(displayValue);
     return displayValue;
@@ -64,10 +68,21 @@ function combineArrayNums(arr) {
 }
 
 const numButtons = document.querySelectorAll(".number-buttons button");
+const opButtons = document.querySelectorAll(".operation-buttons button");
 const display = document.querySelector(".display");
+
+let operator = null;
+let displayValue = null;
 
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         populateDisplay(button);
+    });
+});
+
+opButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        operator = button.textContent;
+        displayValue = getDisplayValue();
     });
 });
