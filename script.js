@@ -63,7 +63,7 @@ function combineArrayNums(arr) {
     return arr;
 }
 
-const numButtons = document.querySelectorAll(".number-button");
+const numButtons = document.querySelectorAll(".number-buttons button");
 const display = document.querySelector(".display");
 
 numButtons.forEach((button) => {
