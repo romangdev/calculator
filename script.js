@@ -30,7 +30,7 @@ function operate(op, num1, num2) {
 }
 
 function populateDisplay(button) {
-    let digit = button.textContent;
+    let digit = Number(button.textContent);
     let s = document.createElement("span");
     s.textContent = digit;
     display.appendChild(s);
@@ -38,6 +38,9 @@ function populateDisplay(button) {
 
 function getDisplayValue() {
     let displayValue = display.textContent;
+    displayValue = Array.from(displayValue);
+    displayValue.splice(0, 14);
+    displayValue = displayValue.map(Number);
     return displayValue;
 }
 
