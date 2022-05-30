@@ -86,7 +86,6 @@ numButtons.forEach((button) => {
         }
         if (displayValue != null) {
             firstDisplayValue = displayValue;
-            displayValue = null;
             display.textContent = "";
         }
         populateDisplay(button);
@@ -98,6 +97,11 @@ numButtons.forEach((button) => {
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
         operator = button.textContent;
+        if (displayValue !== null) {
+            let result = operate(formerOperator, displayValue, getDisplayValue());
+            display.textContent = `${result}`;
+        }
+        formerOperator = operator;
         displayValue = getDisplayValue();
     });
 });
