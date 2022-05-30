@@ -82,6 +82,23 @@ function checkZeroDivide(op, value) {
     }
 }
 
+function resetDisplayConditionally() {
+    if (display.textContent === "0") {
+        display.textContent = "";
+    }
+    else if (display.textContent === "Are you trying to crash the calculator?!") {
+        display.textContent = "";
+    }
+    if (displayValue != null && operator) {
+        display.textContent = "";
+        operator = null;
+    }
+    if (clickedEquals === true) {
+        display.textContent = "";
+        clickedEquals = false;
+    }
+}
+
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
 const equalsbutton = document.querySelector(".equals-button");
@@ -97,20 +114,7 @@ let clickedEquals = false;
 // operator.
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        if (display.textContent === "0") {
-            display.textContent = "";
-        }
-        else if (display.textContent === "Are you trying to crash the calculator?!") {
-            display.textContent = "";
-        }
-        if (displayValue != null && operator) {
-            display.textContent = "";
-            operator = null;
-        }
-        if (clickedEquals === true) {
-            display.textContent = "";
-            clickedEquals = false;
-        }
+        resetDisplayConditionally();
         populateDisplay(button);
     });
 });
@@ -120,6 +124,9 @@ numButtons.forEach((button) => {
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
         operator = button.textContent;
+        if (decimalAdded === true) {
+            decimalAdded = false;
+        }
         if (displayValue !== null) {
             if (checkZeroDivide(formerOperator, getDisplayValue)) {
                 return;
@@ -135,6 +142,9 @@ opButtons.forEach((button) => {
 // When equals button is clicked, operate on the user input numbers
 equalsbutton.addEventListener("click", () => {
     if (clickedEquals === false) {
+        if (decimalAdded === true) {
+            decimalAdded = false;
+        }
         if (checkZeroDivide(formerOperator, getDisplayValue)) {
             return;
         }
@@ -154,6 +164,7 @@ clearButton.addEventListener("click", () => {
 
 let decimalAdded = false;
 decimalButton.addEventListener("click", () => {
+    resetDisplayConditionally();
     if (decimalAdded === false) {
         addDecimal(decimalButton);
     }
