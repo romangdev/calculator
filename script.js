@@ -81,6 +81,9 @@ let secondDisplayValue = null;
 // display content.
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
+        if (display.textContent === "0") {
+            display.textContent = "";
+        }
         if (displayValue != null) {
             firstDisplayValue = displayValue;
             displayValue = null;
