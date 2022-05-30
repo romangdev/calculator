@@ -88,8 +88,6 @@ numButtons.forEach((button) => {
         }
         if (clickedEquals === true) {
             display.textContent = "";
-            displayValue = null;
-            operator = null;
             clickedEquals = false;
         }
         populateDisplay(button);
@@ -114,7 +112,7 @@ opButtons.forEach((button) => {
 equalsbutton.addEventListener("click", () => {
     let result = operate(formerOperator, displayValue, getDisplayValue());
     display.textContent = `${result}`;
-    displayValue = result;
+    displayValue = null;
     clickedEquals = true;
 });
 
