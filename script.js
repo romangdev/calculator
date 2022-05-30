@@ -105,7 +105,7 @@ opButtons.forEach((button) => {
 });
 
 equalsbutton.addEventListener("click", () => {
-    let result = operate(operator, displayValue, getDisplayValue());
+    let result = operate(formerOperator, displayValue, getDisplayValue());
     display.textContent = `${result}`;
     displayValue = result;
 });
