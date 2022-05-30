@@ -73,10 +73,10 @@ const display = document.querySelector(".display");
 
 let operator = null;
 let displayValue = null;
+let clickedEquals = false;
 
-// When button clicked, if no previous display value saved, save the display
-// value to firstdisplayvalue, then set displayValue to null and reset
-// display content.
+// When number button is clicked, populate the display and reset
+// operator.
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         if (display.textContent === "0") {
@@ -86,12 +86,18 @@ numButtons.forEach((button) => {
             display.textContent = "";
             operator = null;
         }
+        if (clickedEquals === true) {
+            display.textContent = "";
+            displayValue = null;
+            operator = null;
+            clickedEquals = false;
+        }
         populateDisplay(button);
     });
 });
 
 // When operator button is clicked, save operator selected and get
-// the final display value.
+// the new display value.
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
         operator = button.textContent;
@@ -104,13 +110,17 @@ opButtons.forEach((button) => {
     });
 });
 
+// When equals button is clicked, operate on the user input numbers
 equalsbutton.addEventListener("click", () => {
     let result = operate(formerOperator, displayValue, getDisplayValue());
     display.textContent = `${result}`;
     displayValue = result;
+    clickedEquals = true;
 });
 
+// When clear is hit, reset calculator variables and clear display
 clearButton.addEventListener("click", () => {
     displayValue = null;
-    display.textContent = "";
+    operator = null;
+    display.textContent = "0";
 });
