@@ -39,6 +39,14 @@ function populateDisplay(button) {
     display.appendChild(s);
 }
 
+function addDecimal(button) {
+    let decimal = button.textContent;
+    let s = document.createElement("span");
+    s.textContent = decimal;
+    display.appendChild(s);
+    decimalAdded = true;
+}
+
 // Get the display value number to be saved as a variable for later use
 function getDisplayValue() {
     let displayValue = display.textContent;
@@ -78,6 +86,7 @@ const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
 const equalsbutton = document.querySelector(".equals-button");
 const clearButton = document.querySelector(".clear-button");
+const decimalButton = document.querySelector(".decimal-button");
 const display = document.querySelector(".display");
 
 let operator = null;
@@ -141,4 +150,11 @@ clearButton.addEventListener("click", () => {
     displayValue = null;
     operator = null;
     display.textContent = "0";
+});
+
+let decimalAdded = false;
+decimalButton.addEventListener("click", () => {
+    if (decimalAdded === false) {
+        addDecimal(decimalButton);
+    }
 });
