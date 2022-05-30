@@ -65,6 +65,15 @@ function combineArrayNums(arr) {
     return arr;
 }
 
+function checkZeroDivide(op, value) {
+    if (formerOperator === "/" && getDisplayValue() === 0) {
+        display.textContent = "Are you trying to crash the calculator?!";
+        displayValue = null;
+        operator = null;
+        return true;
+    }
+}
+
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
 const equalsbutton = document.querySelector(".equals-button");
@@ -80,6 +89,9 @@ let clickedEquals = false;
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         if (display.textContent === "0") {
+            display.textContent = "";
+        }
+        else if (display.textContent === "Are you trying to crash the calculator?!") {
             display.textContent = "";
         }
         if (displayValue != null && operator) {
@@ -100,6 +112,9 @@ opButtons.forEach((button) => {
     button.addEventListener("click", () => {
         operator = button.textContent;
         if (displayValue !== null) {
+            if (checkZeroDivide(formerOperator, getDisplayValue)) {
+                return;
+            }
             let result = operate(formerOperator, displayValue, getDisplayValue());
             display.textContent = `${result}`;
         }
@@ -111,6 +126,9 @@ opButtons.forEach((button) => {
 // When equals button is clicked, operate on the user input numbers
 equalsbutton.addEventListener("click", () => {
     if (clickedEquals === false) {
+        if (checkZeroDivide(formerOperator, getDisplayValue)) {
+            return;
+        }
         let result = operate(formerOperator, displayValue, getDisplayValue());
         display.textContent = `${Number((result).toFixed(4))}`;
         displayValue = null;
