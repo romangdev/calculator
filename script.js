@@ -101,5 +101,8 @@ opButtons.forEach((button) => {
 equalsbutton.addEventListener("click", () => {
     secondDisplayValue = getDisplayValue();
     let result = operate(operator, firstDisplayValue, secondDisplayValue);
-    console.log(result);
+    display.textContent = `${result}`;
+    firstDisplayValue = null;
+    secondDisplayValue = null;
+    displayValue = result;
 });
