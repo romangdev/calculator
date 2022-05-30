@@ -109,11 +109,18 @@ const display = document.querySelector(".display");
 let operator = null;
 let displayValue = null;
 let clickedEquals = false;
+let clickedOperator = false;
 
 // When number button is clicked, populate the display and reset
 // operator.
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
+        if (display.textContent === "ERROR: Try Again") {
+            displayValue = null;
+            operator = null;
+            display.textContent = "";
+        }
+        clickedOperator = false;
         resetDisplayConditionally();
         populateDisplay(button);
     });
@@ -123,19 +130,29 @@ numButtons.forEach((button) => {
 // the new display value.
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        operator = button.textContent;
-        if (decimalAdded === true) {
-            decimalAdded = false;
+        if (clickedOperator === true) {
+            display.textContent = "ERROR: Try Again";
+            clickedOperator = false;
+            displayValue = null;
+            operator = null;
+            return;
         }
-        if (displayValue !== null) {
-            if (checkZeroDivide(formerOperator, getDisplayValue)) {
-                return;
+        else {
+            clickedOperator = true;
+            operator = button.textContent;
+            if (decimalAdded === true) {
+                decimalAdded = false;
             }
-            let result = operate(formerOperator, displayValue, getDisplayValue());
-            display.textContent = `${result}`;
+            if (displayValue !== null) {
+                if (checkZeroDivide(formerOperator, getDisplayValue)) {
+                    return;
+                }
+                let result = operate(formerOperator, displayValue, getDisplayValue());
+                display.textContent = `${result}`;
+            }
+            formerOperator = operator;
+            displayValue = getDisplayValue();
         }
-        formerOperator = operator;
-        displayValue = getDisplayValue();
     });
 });
 
