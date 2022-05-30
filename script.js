@@ -110,10 +110,12 @@ opButtons.forEach((button) => {
 
 // When equals button is clicked, operate on the user input numbers
 equalsbutton.addEventListener("click", () => {
-    let result = operate(formerOperator, displayValue, getDisplayValue());
-    display.textContent = `${Number((result).toFixed(4))}`;
-    displayValue = null;
-    clickedEquals = true;
+    if (clickedEquals === false) {
+        let result = operate(formerOperator, displayValue, getDisplayValue());
+        display.textContent = `${Number((result).toFixed(4))}`;
+        displayValue = null;
+        clickedEquals = true;
+    }
 });
 
 // When clear is hit, reset calculator variables and clear display
