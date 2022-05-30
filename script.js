@@ -67,6 +67,7 @@ function combineArrayNums(arr) {
 
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
+const equalsbutton = document.querySelector(".equals-button");
 const display = document.querySelector(".display");
 
 let operator = null;
@@ -95,4 +96,10 @@ opButtons.forEach((button) => {
         operator = button.textContent;
         displayValue = getDisplayValue();
     });
+});
+
+equalsbutton.addEventListener("click", () => {
+    secondDisplayValue = getDisplayValue();
+    let result = operate(operator, firstDisplayValue, secondDisplayValue);
+    console.log(result);
 });
