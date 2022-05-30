@@ -73,8 +73,6 @@ const display = document.querySelector(".display");
 
 let operator = null;
 let displayValue = null;
-let firstDisplayValue = null;
-let secondDisplayValue = null;
 
 // When button clicked, if no previous display value saved, save the display
 // value to firstdisplayvalue, then set displayValue to null and reset
@@ -84,9 +82,9 @@ numButtons.forEach((button) => {
         if (display.textContent === "0") {
             display.textContent = "";
         }
-        if (displayValue != null) {
-            firstDisplayValue = displayValue;
+        if (displayValue != null && operator) {
             display.textContent = "";
+            operator = null;
         }
         populateDisplay(button);
     });
@@ -107,17 +105,12 @@ opButtons.forEach((button) => {
 });
 
 equalsbutton.addEventListener("click", () => {
-    secondDisplayValue = getDisplayValue();
-    let result = operate(operator, firstDisplayValue, secondDisplayValue);
+    let result = operate(operator, displayValue, getDisplayValue());
     display.textContent = `${result}`;
-    firstDisplayValue = null;
-    secondDisplayValue = null;
     displayValue = result;
 });
 
 clearButton.addEventListener("click", () => {
-    firstDisplayValue = null;
-    secondDisplayValue = null;
     displayValue = null;
     display.textContent = "";
 });
