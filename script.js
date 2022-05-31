@@ -148,6 +148,10 @@ opButtons.forEach((button) => {
             if (decimalAdded === true) {
                 decimalAdded = false;
             }
+            if (operator === "-" && (display.textContent === "0" || display.textContent === "")) {
+                display.textContent = "-";
+                return;
+            }
             if (displayValue !== null) {
                 if (checkZeroDivide(formerOperator, getDisplayValue)) {
                     return;
