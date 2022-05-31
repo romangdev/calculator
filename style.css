@@ -50,6 +50,74 @@ table {
 /* Non-Reset Styles */
 
 body {
+    height: 100vh;
     display: flex;
-    
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    display: grid;
+    grid-template: repeat(6, 1fr) / repeat(4, 1fr);
+    width: 400px;
+    height: 500px;
+    border: solid red 1px;
+}
+
+.display {
+    grid-area: 1 / 1 / span 1 / span 4;
+    border: solid red 1px;
+}
+
+.number-buttons {
+    grid-area: 2 / 1 / span 4 / span 3;
+    border: solid red 1px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.number-buttons button {
+    width: 80px;
+    height: 80px;
+}
+
+.operation-buttons {
+    grid-area: 2 / 4 / span 4 /span 1;
+    border: solid red 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.backspace-button {
+    grid-area: 5 / 2 / span 1 / span 2;
+}
+
+.decimal-button {
+    grid-area: 6 / 1 / span 1 / span 1;
+}
+
+.equals-button {
+    grid-area: 6 / 3 / span 1 / span 2;
+}
+
+.clear-button {
+    grid-area: 6 / 2 / span 1 / span 1;
+}
+
+.clear-button, .decimal-button {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+}
+
+.equals-button {
+    width: 160px;
+    height: 80px;
+    display: flex;
+    justify-self: center;
+    align-self: center;
 }
