@@ -32,11 +32,13 @@ function operate(op, num1, num2) {
 
 // Append digits into display when clicked, then save new display
 // value variable.
+let latestCharacter = null;
 function populateDisplay(button) {
     let digit = button.textContent;
     let s = document.createElement("span");
     s.textContent = digit;
     display.appendChild(s);
+    return latestCharacter = s;
 }
 
 function addDecimal(button) {
@@ -45,6 +47,7 @@ function addDecimal(button) {
     s.textContent = decimal;
     display.appendChild(s);
     decimalAdded = true;
+    return latestCharacter = s;
 }
 
 // Get the display value number to be saved as a variable for later use
@@ -104,6 +107,7 @@ const opButtons = document.querySelectorAll(".operation-buttons button");
 const equalsbutton = document.querySelector(".equals-button");
 const clearButton = document.querySelector(".clear-button");
 const decimalButton = document.querySelector(".decimal-button");
+const backspaceButton = document.querySelector(".backspace-button");
 const display = document.querySelector(".display");
 
 let operator = null;
@@ -168,4 +172,8 @@ decimalButton.addEventListener("click", () => {
     if (decimalAdded === false) {
         addDecimal(decimalButton);
     }
+});
+
+backspaceButton.addEventListener("click", () => {
+    display.removeChild(latestCharacter);
 });
