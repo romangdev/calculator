@@ -188,6 +188,7 @@ document.addEventListener("keypress", (e) => {
     console.log(e);
     numButtons.forEach((button) => {
         if (e.key === button.textContent) {
+            highlightBorder(button);
             resetDisplayConditionally();
             populateDisplay(button);
         }
