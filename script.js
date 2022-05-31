@@ -37,9 +37,8 @@ function operate(op, num1, num2) {
 // value variable.
 let latestCharacter = null;
 function populateDisplay(button) {
-    let digit = button.textContent;
     let s = document.createElement("span");
-    s.textContent = digit;
+    s.textContent = button.textContent;
     display.appendChild(s);
     return latestCharacter = s;
 }
@@ -183,4 +182,14 @@ decimalButton.addEventListener("click", () => {
 
 backspaceButton.addEventListener("click", () => {
     display.removeChild(latestCharacter);
+});
+
+document.addEventListener("keypress", (e) => {
+    console.log(e);
+    numButtons.forEach((button) => {
+        if (e.key === button.textContent) {
+            resetDisplayConditionally();
+            populateDisplay(button);
+        }
+    });
 });
