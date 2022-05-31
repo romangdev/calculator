@@ -33,6 +33,27 @@ function operate(op, num1, num2) {
     }
 }
 
+function handleOperationScenarios(button) {
+    operator = button.textContent;
+    if (decimalAdded === true) {
+        decimalAdded = false;
+    }
+    if (operator === "-" && (display.textContent === "0" || display.textContent === "")) {
+        clickedEquals = false;
+        display.textContent = "-";
+        return;
+    }
+    if (displayValue !== null) {
+        if (checkZeroDivide(formerOperator, getDisplayValue)) {
+            return;
+        }
+        let result = operate(formerOperator, displayValue, getDisplayValue());
+        display.textContent = `${result}`;
+    }
+    formerOperator = operator;
+    displayValue = getDisplayValue();
+}
+
 // Append digits into display when clicked, then save new display
 // value variable.
 let latestCharacter = null;
@@ -127,24 +148,7 @@ numButtons.forEach((button) => {
 // the new display value.
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
-            operator = button.textContent;
-            if (decimalAdded === true) {
-                decimalAdded = false;
-            }
-            if (operator === "-" && (display.textContent === "0" || display.textContent === "")) {
-                clickedEquals = false;
-                display.textContent = "-";
-                return;
-            }
-            if (displayValue !== null) {
-                if (checkZeroDivide(formerOperator, getDisplayValue)) {
-                    return;
-                }
-                let result = operate(formerOperator, displayValue, getDisplayValue());
-                display.textContent = `${result}`;
-            }
-            formerOperator = operator;
-            displayValue = getDisplayValue();
+        handleOperationScenarios(button);
     });
 });
 
@@ -193,4 +197,5 @@ document.addEventListener("keypress", (e) => {
             populateDisplay(button);
         }
     });
+
 });
