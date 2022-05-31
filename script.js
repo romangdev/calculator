@@ -115,6 +115,13 @@ function highlightBorder(button) {
     }, 300);
 };
 
+function clearReset() {
+    displayValue = null;
+    formerOperator = null;
+    operator = null;
+    display.textContent = "0";
+}
+
 const allButtons = document.querySelectorAll("button");
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
@@ -170,10 +177,7 @@ equalsbutton.addEventListener("click", () => {
 
 // When clear is hit, reset calculator variables and clear display
 clearButton.addEventListener("click", () => {
-    displayValue = null;
-    formerOperator = null;
-    operator = null;
-    display.textContent = "0";
+    clearReset();
 });
 
 let decimalAdded = false;
@@ -197,5 +201,10 @@ document.addEventListener("keypress", (e) => {
             populateDisplay(button);
         }
     });
-
+    opButtons.forEach((button) => {
+        if (e.key === button.textContent) {
+            highlightBorder(button);
+            handleOperationScenarios(button);
+        }
+    });
 });
