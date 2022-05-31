@@ -168,6 +168,7 @@ equalsbutton.addEventListener("click", () => {
 // When clear is hit, reset calculator variables and clear display
 clearButton.addEventListener("click", () => {
     displayValue = null;
+    formerOperator = null;
     operator = null;
     display.textContent = "0";
 });
