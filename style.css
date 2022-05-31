@@ -62,12 +62,19 @@ body {
     grid-template: repeat(6, 1fr) / repeat(4, 1fr);
     width: 400px;
     height: 500px;
-    border: solid red 1px;
+    background-color: #5E5E5E;
+    border-radius: 10px;
 }
 
 .display {
     grid-area: 1 / 1 / span 1 / span 4;
-    border: solid red 1px;
+    border: #333333 2px solid;
+    display: flex;
+    align-items: center;
+    margin: 8px 8px 0 8px;
+    font-size: 50px;
+    padding-left: 10px;
+    background-color: white;
 }
 
 button {
@@ -76,6 +83,18 @@ button {
     align-items: center;
     font-size: 30px;
     font-family: 'Archivo Narrow', sans-serif;
+    background-color: #F3D3BD;
+    border: #333333 2px solid;
+}
+
+.button-border {
+    border: 5px solid yellow;
+    transition: border .3s;
+}
+
+.fade {
+    border: #333333 2px solid;
+    transition: border .3s;
 }
 
 .number-buttons {
@@ -100,6 +119,7 @@ button {
     display: flex;
     justify-self: center;
     align-self: center;
+    background-color: #48E5C2;
 }
 
 .operation-buttons {
@@ -139,6 +159,8 @@ button {
     display: flex;
     justify-self: center;
     align-self: center;
+    font-size: 50px;
+    font-weight: bold;
 }
 
 .backspace-button {

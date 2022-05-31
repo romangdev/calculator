@@ -102,6 +102,16 @@ function resetDisplayConditionally() {
     }
 }
 
+function highlightBorder(button) {
+    button.classList.remove("fade");
+    button.classList.add("button-border");
+    setTimeout(() => {
+        button.classList.remove("button-border");
+        button.classList.add("fade");
+    }, 300);
+};
+
+const allButtons = document.querySelectorAll("button");
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
 const equalsbutton = document.querySelector(".equals-button");
@@ -113,6 +123,13 @@ const display = document.querySelector(".display");
 let operator = null;
 let displayValue = null;
 let clickedEquals = false;
+
+allButtons.forEach((button) => {
+    button.classList.add("fade");
+    button.addEventListener("click", () => {
+        highlightBorder(button);
+    });
+});
 
 // When number button is clicked, populate the display and reset
 // operator.
