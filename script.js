@@ -122,10 +122,25 @@ function clearReset() {
     display.textContent = "0";
 }
 
+function handleEqualsScenarios() {
+    if (clickedEquals === false) {
+        if (decimalAdded === true) {
+            decimalAdded = false;
+        }
+        if (checkZeroDivide(formerOperator, getDisplayValue)) {
+            return;
+        }
+        let result = operate(formerOperator, displayValue, getDisplayValue());
+        display.textContent = `${Number((result).toFixed(4))}`;
+        displayValue = null;
+        clickedEquals = true;
+    }
+}
+
 const allButtons = document.querySelectorAll("button");
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
-const equalsbutton = document.querySelector(".equals-button");
+const equalsButton = document.querySelector(".equals-button");
 const clearButton = document.querySelector(".clear-button");
 const decimalButton = document.querySelector(".decimal-button");
 const backspaceButton = document.querySelector(".backspace-button");
@@ -160,19 +175,8 @@ opButtons.forEach((button) => {
 });
 
 // When equals button is clicked, operate on the user input numbers
-equalsbutton.addEventListener("click", () => {
-    if (clickedEquals === false) {
-        if (decimalAdded === true) {
-            decimalAdded = false;
-        }
-        if (checkZeroDivide(formerOperator, getDisplayValue)) {
-            return;
-        }
-        let result = operate(formerOperator, displayValue, getDisplayValue());
-        display.textContent = `${Number((result).toFixed(4))}`;
-        displayValue = null;
-        clickedEquals = true;
-    }
+equalsButton.addEventListener("click", () => {
+    handleEqualsScenarios();
 });
 
 // When clear is hit, reset calculator variables and clear display
@@ -193,7 +197,6 @@ backspaceButton.addEventListener("click", () => {
 });
 
 document.addEventListener("keypress", (e) => {
-    console.log(e);
     numButtons.forEach((button) => {
         if (e.key === button.textContent) {
             highlightBorder(button);
@@ -207,4 +210,23 @@ document.addEventListener("keypress", (e) => {
             handleOperationScenarios(button);
         }
     });
+    if (e.key === "c") {
+        highlightBorder(clearButton);
+        clearReset();
+    }
+    else if (e.key === ".") {
+        highlightBorder(decimalButton);
+        resetDisplayConditionally();
+        if (decimalAdded === false) {
+            addDecimal(decimalButton);
+        }
+    }
+    else if (e.key === "d") {
+        highlightBorder(backspaceButton);
+        display.removeChild(latestCharacter);
+    }
+    else if (e.key === "=") {
+        highlightBorder(equalsButton);
+        handleEqualsScenarios();
+    }
 });
