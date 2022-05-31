@@ -16,6 +16,9 @@ function divide(a, b) {
 
 // Operate on 2 numbers based on operation chosen.
 function operate(op, num1, num2) {
+    if (num1 === null) {
+        return num2;
+    }
     if (op == "+") {
         return add(num1, num2);
     }
@@ -59,7 +62,7 @@ function getDisplayValue() {
 
 function checkZeroDivide(op, value) {
     if (formerOperator === "/" && getDisplayValue() === 0) {
-        display.textContent = "Are you trying to crash the calculator?!";
+        display.textContent = "Impossible!";
         displayValue = null;
         operator = null;
         return true;
@@ -70,7 +73,7 @@ function resetDisplayConditionally() {
     if (display.textContent === "0") {
         display.textContent = "";
     }
-    else if (display.textContent === "Are you trying to crash the calculator?!") {
+    else if (display.textContent === "Impossible!") {
         display.textContent = "";
     }
     if (displayValue != null && operator) {
