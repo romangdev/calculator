@@ -149,6 +149,7 @@ opButtons.forEach((button) => {
                 decimalAdded = false;
             }
             if (operator === "-" && (display.textContent === "0" || display.textContent === "")) {
+                clickedEquals = false;
                 display.textContent = "-";
                 return;
             }
