@@ -57,18 +57,6 @@ function getDisplayValue() {
     return displayValue;
 }
 
-// Combine the elements of an array in one number (to be used in 
-// getDisplayValue function).
-function combineArrayNums(arr) {
-    let value = ""; 
-    arr.forEach((val) => {
-        value += val;
-        return value;
-    });
-    arr = value;
-    return arr;
-}
-
 function checkZeroDivide(op, value) {
     if (formerOperator === "/" && getDisplayValue() === 0) {
         display.textContent = "Are you trying to crash the calculator?!";
