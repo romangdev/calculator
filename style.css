@@ -52,9 +52,16 @@ table {
 body {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: 'Archivo Narrow', sans-serif;
+}
+
+h1 {
+    font-size: 50px;
+    margin-top: -50px;
+    padding-bottom: 50px;
 }
 
 .calculator {
@@ -62,6 +69,7 @@ body {
     grid-template: repeat(6, 1fr) / repeat(4, 1fr);
     width: 400px;
     height: 500px;
+    min-height: 500px;
     background-color: #5E5E5E;
     border-radius: 10px;
 }
@@ -171,3 +179,4 @@ button {
     justify-self: center;
     align-self: center;
 }
+
