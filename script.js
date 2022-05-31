@@ -53,13 +53,6 @@ function addDecimal(button) {
 // Get the display value number to be saved as a variable for later use
 function getDisplayValue() {
     let displayValue = display.textContent;
-    displayValue = Array.from(displayValue);
-    for (let i = 0; i < displayValue.length; i++) {
-        if (displayValue[i] === "\n" || displayValue[i] === " ") {
-            displayValue.splice(i, 1);
-        }
-    }
-    displayValue = combineArrayNums(displayValue);
     displayValue = Number(displayValue);
     return displayValue;
 }
