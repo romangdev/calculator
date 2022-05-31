@@ -54,6 +54,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Archivo Narrow', sans-serif;
 }
 
 .calculator {
@@ -67,6 +68,14 @@ body {
 .display {
     grid-area: 1 / 1 / span 1 / span 4;
     border: solid red 1px;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-family: 'Archivo Narrow', sans-serif;
 }
 
 .number-buttons {
