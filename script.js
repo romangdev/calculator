@@ -109,18 +109,11 @@ const display = document.querySelector(".display");
 let operator = null;
 let displayValue = null;
 let clickedEquals = false;
-let clickedOperator = false;
 
 // When number button is clicked, populate the display and reset
 // operator.
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        if (display.textContent === "ERROR: Try Again") {
-            displayValue = null;
-            operator = null;
-            display.textContent = "";
-        }
-        clickedOperator = false;
         resetDisplayConditionally();
         populateDisplay(button);
     });
@@ -130,15 +123,6 @@ numButtons.forEach((button) => {
 // the new display value.
 opButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        if (clickedOperator === true) {
-            display.textContent = "ERROR: Try Again";
-            clickedOperator = false;
-            displayValue = null;
-            operator = null;
-            return;
-        }
-        else {
-            clickedOperator = true;
             operator = button.textContent;
             if (decimalAdded === true) {
                 decimalAdded = false;
@@ -152,7 +136,6 @@ opButtons.forEach((button) => {
             }
             formerOperator = operator;
             displayValue = getDisplayValue();
-        }
     });
 });
 
