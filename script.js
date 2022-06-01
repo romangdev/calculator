@@ -48,7 +48,7 @@ function handleOperationScenarios(button) {
             return;
         }
         let result = operate(formerOperator, displayValue, getDisplayValue());
-        display.textContent = `${result}`;
+        display.textContent = `${result.toFixed(4)}`;
     }
     formerOperator = operator;
     displayValue = getDisplayValue();
@@ -175,7 +175,7 @@ numButtons.forEach((button) => {
             limitReached = false;
         }
         makeNumArray();
-        if (val.length === 17) {
+        if (val.length === 17 || val.length === 18) {
             limitReached = true;
             return;
         }
