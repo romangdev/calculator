@@ -33,6 +33,8 @@ function operate(op, num1, num2) {
     }
 }
 
+// Handle the various scenarios that may come up during an operation on the
+// calculator.
 function handleOperationScenarios(button) {
     operator = button.textContent;
     if (decimalAdded === true) {
@@ -64,6 +66,7 @@ function populateDisplay(button) {
     return latestCharacter = s;
 }
 
+// add a decimal onto the display when button is clicked
 function addDecimal(button) {
     let decimal = button.textContent;
     let s = document.createElement("span");
@@ -80,6 +83,7 @@ function getDisplayValue() {
     return displayValue;
 }
 
+// See if there was a division by zero and handle with an error message
 function checkZeroDivide(op, value) {
     if (formerOperator === "/" && getDisplayValue() === 0) {
         display.textContent = "Impossible!";
@@ -89,6 +93,7 @@ function checkZeroDivide(op, value) {
     }
 }
 
+// Reset the display completely based on certain conditions being met
 function resetDisplayConditionally() {
     if (display.textContent === "0") {
         display.textContent = "";
@@ -106,6 +111,7 @@ function resetDisplayConditionally() {
     }
 }
 
+// highlight the border of each button yellow momentarily when clicked
 function highlightBorder(button) {
     button.classList.remove("fade");
     button.classList.add("button-border");
@@ -115,6 +121,7 @@ function highlightBorder(button) {
     }, 300);
 };
 
+// reset all variables whenever clear button is clicked
 function clearReset() {
     displayValue = null;
     formerOperator = null;
@@ -122,6 +129,7 @@ function clearReset() {
     display.textContent = "0";
 }
 
+// handle the equals button being pressed under various scenarios
 function handleEqualsScenarios() {
     if (clickedEquals === false) {
         if (decimalAdded === true) {
@@ -137,6 +145,7 @@ function handleEqualsScenarios() {
     }
 }
 
+// make the display an array of elements to be used in limiting its length
 function makeNumArray() {
     val = getDisplayValue();
     val = val.toString().split("");
@@ -157,6 +166,7 @@ let operator = null;
 let displayValue = null;
 let clickedEquals = false;
 let val = null;
+let decimalAdded = false;
 
 allButtons.forEach((button) => {
     button.classList.add("fade");
@@ -166,7 +176,7 @@ allButtons.forEach((button) => {
 });
 
 // When number button is clicked, populate the display and reset
-// operator.
+// operator. Handle the length limiting.
 let limitReached = false;
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -191,17 +201,14 @@ opButtons.forEach((button) => {
     });
 });
 
-// When equals button is clicked, operate on the user input numbers
 equalsButton.addEventListener("click", () => {
     handleEqualsScenarios();
 });
 
-// When clear is hit, reset calculator variables and clear display
 clearButton.addEventListener("click", () => {
     clearReset();
 });
 
-let decimalAdded = false;
 decimalButton.addEventListener("click", () => {
     resetDisplayConditionally();
     if (decimalAdded === false) {
@@ -213,6 +220,8 @@ backspaceButton.addEventListener("click", () => {
     display.removeChild(latestCharacter);
 });
 
+// Bind corresponding keyboard buttons to call same functions as their
+// related buttons whenever clicked. (keyboard support)
 document.addEventListener("keypress", (e) => {
     numButtons.forEach((button) => {
         if (e.key === button.textContent) {
