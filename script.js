@@ -74,15 +74,17 @@ function handleOperationScenarios(button) {
             display.textContent = `${Number((resultHolder).toFixed(4))}`;
         }
     }
-    
+
     formerOperator = operator;
     displayValue = getDisplayValue();
 }
 
 // Append digits into display when clicked, then save new display
 // value variable.
-let latestCharacter = null;
 function populateDisplay(button) {
+    if (limitReached === true) {
+        return;
+    }
     let s = document.createElement("span");
     s.textContent = button.textContent;
     display.appendChild(s);
@@ -200,6 +202,17 @@ function makeNumArray() {
     return val;
 }
 
+function limitLength() {
+    if (display.textContent === "" || display.textContent === "0") {
+        limitReached = false;
+    }
+    val = makeNumArray();
+    if (val.length === 17 || val.length === 18) {
+        limitReached = true;
+        return;
+    }
+}
+
 const allButtons = document.querySelectorAll("button");
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
@@ -212,8 +225,10 @@ const display = document.querySelector(".display");
 let operator = null;
 let displayValue = null;
 let clickedEquals = false;
+let latestCharacter = null;
 let val = null;
 let decimalAdded = false;
+let limitReached = false;
 
 allButtons.forEach((button) => {
     button.classList.add("fade");
@@ -224,18 +239,10 @@ allButtons.forEach((button) => {
 
 // When number button is clicked, populate the display and reset
 // operator. Handle the length limiting.
-let limitReached = false;
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         resetDisplayConditionally();
-        if (display.textContent === "" || display.textContent === "0") {
-            limitReached = false;
-        }
-        makeNumArray();
-        if (val.length === 17 || val.length === 18) {
-            limitReached = true;
-            return;
-        }
+        limitLength();
         populateDisplay(button);
     });
 });
@@ -274,6 +281,7 @@ document.addEventListener("keypress", (e) => {
         if (e.key === button.textContent) {
             highlightBorder(button);
             resetDisplayConditionally();
+            limitLength();
             populateDisplay(button);
         }
     });
