@@ -154,7 +154,6 @@ function clearReset() {
     display.textContent = "0";
 }
 
-let contains = null;
 // handle the equals button being pressed under various scenarios
 function handleEqualsScenarios() {
     if (clickedEquals === false) {
@@ -202,6 +201,7 @@ function makeNumArray() {
     return val;
 }
 
+// don't allow calculator result to display a number past the length of the display
 function limitLength() {
     if (display.textContent === "" || display.textContent === "0") {
         limitReached = false;
@@ -229,6 +229,7 @@ let latestCharacter = null;
 let val = null;
 let decimalAdded = false;
 let limitReached = false;
+let contains = null;
 
 allButtons.forEach((button) => {
     button.classList.add("fade");
@@ -306,7 +307,7 @@ document.addEventListener("keypress", (e) => {
         highlightBorder(backspaceButton);
         display.removeChild(latestCharacter);
     }
-    else if (e.key === "=") {
+    else if (e.key === "=" || e.key === "Enter") {
         highlightBorder(equalsButton);
         handleEqualsScenarios();
     }
