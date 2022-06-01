@@ -147,6 +147,8 @@ function handleEqualsScenarios() {
     }
 }
 
+// This function prevents the result of an operation displayed from overflowing
+// the boundary of the physical display. Also handles scientific notation.
 function handleResultLength(result) {
     result = Number((result).toFixed(4));
     let resultHolder = result;
@@ -156,6 +158,8 @@ function handleResultLength(result) {
             return true;
         }
     }); 
+    // "e" indicates scientific notation. If result has it, then remove
+    // necessary digits for it to fit display.
     if (contains === "e") {
         for (let i = 0; i < result.length; i++) {
             if (result[i] === "e") {
@@ -165,6 +169,7 @@ function handleResultLength(result) {
             }
         }
     }
+    // if the result is longer than 16 chars, cut the rest off
     else {
         resultHolder = resultHolder.toString().split("");
         if (resultHolder.length > 16) {
