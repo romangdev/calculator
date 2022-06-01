@@ -166,8 +166,12 @@ function handleResultLength(result) {
         }
     }
     else {
-        result.join("")
-        display.textContent = `${Number((resultHolder).toFixed(4))}`;
+        resultHolder = resultHolder.toString().split("");
+        if (resultHolder.length > 16) {
+            resultHolder.splice(16);
+        }
+        resultHolder = resultHolder.join("")
+        display.textContent = `${Number((resultHolder))}`;
     }
 }
 
