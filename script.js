@@ -50,31 +50,8 @@ function handleOperationScenarios(button) {
             return;
         }
         let result = operate(formerOperator, displayValue, getDisplayValue());
-
-        // handling result length and scientific notation
-        result = Number((result).toFixed(4));
-        let resultHolder = result;
-        result = result.toString().split("");
-        contains = result.find((element) => {
-            if(element === "e") {
-                return true;
-            }
-        }); 
-        if (contains === "e") {
-            for (let i = 0; i < result.length; i++) {
-                if (result[i] === "e") {
-                    let range = i - 11;
-                    result.splice(11, range);
-                    display.textContent = `${result.join("")}`;
-                }
-            }
-        }
-        else {
-            result.join("")
-            display.textContent = `${Number((resultHolder).toFixed(4))}`;
-        }
+        handleResultLength(result);
     }
-
     formerOperator = operator;
     displayValue = getDisplayValue();
 }
@@ -164,32 +141,33 @@ function handleEqualsScenarios() {
             return;
         }
         let result = operate(formerOperator, displayValue, getDisplayValue());
-
-        // handling result length and scientific notation
-        result = Number((result).toFixed(4));
-        let resultHolder = result;
-        result = result.toString().split("");
-        contains = result.find((element) => {
-            if(element === "e") {
-                return true;
-            }
-        }); 
-        if (contains === "e") {
-            for (let i = 0; i < result.length; i++) {
-                if (result[i] === "e") {
-                    let range = i - 11;
-                    result.splice(11, range);
-                    display.textContent = `${result.join("")}`;
-                }
-            }
-        }
-        else {
-            result.join("")
-            display.textContent = `${Number((resultHolder).toFixed(4))}`;
-        }
-    
+        handleResultLength(result);
         displayValue = null;
         clickedEquals = true;
+    }
+}
+
+function handleResultLength(result) {
+    result = Number((result).toFixed(4));
+    let resultHolder = result;
+    result = result.toString().split("");
+    contains = result.find((element) => {
+        if(element === "e") {
+            return true;
+        }
+    }); 
+    if (contains === "e") {
+        for (let i = 0; i < result.length; i++) {
+            if (result[i] === "e") {
+                let range = i - 11;
+                result.splice(11, range);
+                display.textContent = `${result.join("")}`;
+            }
+        }
+    }
+    else {
+        result.join("")
+        display.textContent = `${Number((resultHolder).toFixed(4))}`;
     }
 }
 
