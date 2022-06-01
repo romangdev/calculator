@@ -137,6 +137,13 @@ function handleEqualsScenarios() {
     }
 }
 
+function makeNumArray() {
+    val = getDisplayValue();
+    val = val.toString().split("");
+    val.push("limit");
+    return val;
+}
+
 const allButtons = document.querySelectorAll("button");
 const numButtons = document.querySelectorAll(".number-buttons button");
 const opButtons = document.querySelectorAll(".operation-buttons button");
@@ -149,6 +156,7 @@ const display = document.querySelector(".display");
 let operator = null;
 let displayValue = null;
 let clickedEquals = false;
+let val = null;
 
 allButtons.forEach((button) => {
     button.classList.add("fade");
@@ -159,9 +167,18 @@ allButtons.forEach((button) => {
 
 // When number button is clicked, populate the display and reset
 // operator.
+let limitReached = false;
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         resetDisplayConditionally();
+        if (display.textContent === "" || display.textContent === "0") {
+            limitReached = false;
+        }
+        makeNumArray();
+        if (val.length === 17) {
+            limitReached = true;
+            return;
+        }
         populateDisplay(button);
     });
 });
