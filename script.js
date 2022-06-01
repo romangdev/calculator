@@ -50,8 +50,31 @@ function handleOperationScenarios(button) {
             return;
         }
         let result = operate(formerOperator, displayValue, getDisplayValue());
-        display.textContent = `${result.toFixed(4)}`;
+
+        // handling result length and scientific notation
+        result = Number((result).toFixed(4));
+        let resultHolder = result;
+        result = result.toString().split("");
+        contains = result.find((element) => {
+            if(element === "e") {
+                return true;
+            }
+        }); 
+        if (contains === "e") {
+            for (let i = 0; i < result.length; i++) {
+                if (result[i] === "e") {
+                    let range = i - 11;
+                    result.splice(11, range);
+                    display.textContent = `${result.join("")}`;
+                }
+            }
+        }
+        else {
+            result.join("")
+            display.textContent = `${Number((resultHolder).toFixed(4))}`;
+        }
     }
+    
     formerOperator = operator;
     displayValue = getDisplayValue();
 }
@@ -129,6 +152,7 @@ function clearReset() {
     display.textContent = "0";
 }
 
+let contains = null;
 // handle the equals button being pressed under various scenarios
 function handleEqualsScenarios() {
     if (clickedEquals === false) {
@@ -139,7 +163,30 @@ function handleEqualsScenarios() {
             return;
         }
         let result = operate(formerOperator, displayValue, getDisplayValue());
-        display.textContent = `${Number((result).toFixed(4))}`;
+
+        // handling result length and scientific notation
+        result = Number((result).toFixed(4));
+        let resultHolder = result;
+        result = result.toString().split("");
+        contains = result.find((element) => {
+            if(element === "e") {
+                return true;
+            }
+        }); 
+        if (contains === "e") {
+            for (let i = 0; i < result.length; i++) {
+                if (result[i] === "e") {
+                    let range = i - 11;
+                    result.splice(11, range);
+                    display.textContent = `${result.join("")}`;
+                }
+            }
+        }
+        else {
+            result.join("")
+            display.textContent = `${Number((resultHolder).toFixed(4))}`;
+        }
+    
         displayValue = null;
         clickedEquals = true;
     }
